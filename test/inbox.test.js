@@ -17,13 +17,17 @@ beforeEach(async () =>{
 
 describe('Inbox', () => {
     it("deploys a contract", () =>  {
-        assert.ok(inbox.options.address);
+        assert.ok(inbox.options.address); //contract var mı?
     });
     it("has a initial message", async ()=> {
-        const message = await inbox.methods.message().call();
+        const message = await inbox.methods.message().call(); //mesaj Hi there! e eşit mi?
         assert.equal(message, "Hi there!")
     });
-    
+    it("can change message", async ()=> {
+        await inbox.methods.setMessage("changed!").send({from: accounts[0]}) //solidity kodunda yazdığımız setMessage'ı denedik
+        const message = await inbox.methods.message().call();
+        assert.equal(message, "changed!")
+    });
    
 
 });
